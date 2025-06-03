@@ -31,6 +31,37 @@ go-to: events_choice if has_event = 1; main if has_event = 0
 
 @events_choice
 
-#- #event
+- #event
 
 # This scene is solely for updating numbers after events, and routing to special events.
+
+@event
+title: Test Event
+tags: event
+unavailable-subtitle: 
+new-page: true
+
+= A Political Challenge
+
+A political crisis has emerged that requires your attention.
+
+- @event_choice_1: Take decisive action
+- @event_choice_2: Wait and see
+
+@event_choice_1
+on-arrival: {!
+// Handle event consequences
+!}
+
+You take decisive action. The crisis is resolved, but at some political cost.
+
+- @main: Continue
+
+@event_choice_2  
+on-arrival: {!
+// Handle event consequences  
+!}
+
+You decide to wait. The situation stabilizes on its own.
+
+- @main: Continue
