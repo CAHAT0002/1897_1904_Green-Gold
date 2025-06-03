@@ -9,6 +9,12 @@ if (typeof window !== "undefined" && window.generateBar) {
 
 = [+ month : month +] [+ year +]
 
+
+> *"Such a general development cannot be attributed to the false tactics of any single party or to the mistakes of individual leaders. On the contrary, the conduct of individual leaders is determined largely by the sentiments of the people as a whole. It would be erroneous, however, to regard the sentiments of the moment as reflecting the natural make-up and character of the people. They are merely the consequence of the special circumstances which have brought about this profound degradation of the entire nation."*
+
+ - Karl Kau main
+
+
 #@events_choice
 
 #- #event
