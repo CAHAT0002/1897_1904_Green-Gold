@@ -43,7 +43,7 @@ Q.dissent_percent = 5;
 
 // factions
 Q.factions = ['left', 'center', 'labor', 'reformist', 'neorevisionist'];
-}
+!}
 set-bg: img/map_2.jpg
 new-page: true
 
