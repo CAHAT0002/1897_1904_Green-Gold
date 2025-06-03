@@ -1,22 +1,12 @@
 title: Post Event
 new-page: true
-on-arrival: {!
-
-if (typeof window !== "undefined" && window.generateBar) {
-}
-!}
-#go-to: events_choice if has_event = 1; main if has_event = 0
+Q.events_choice = 0
+go-to: events_choice if has_event = 1; main if has_event = 0
 
 = [+ month : month +] [+ year +]
 
+@events_choice
 
-> *"Such a general development cannot be attributed to the false tactics of any single party or to the mistakes of individual leaders. On the contrary, the conduct of individual leaders is determined largely by the sentiments of the people as a whole. It would be erroneous, however, to regard the sentiments of the moment as reflecting the natural make-up and character of the people. They are merely the consequence of the special circumstances which have brought about this profound degradation of the entire nation."*
-
- - Karl Kau main
-
-
-#@events_choice
-
-#- #event
+- #event
 
 # This scene is solely for updating numbers after events, and routing to special events.
