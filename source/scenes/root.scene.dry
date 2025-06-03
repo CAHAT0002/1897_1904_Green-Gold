@@ -1,6 +1,6 @@
 title: Root Scene
 new-page: true
-go-to: post_event if started = 1; start_menu if started = 0
+//go-to: post_event if started = 1; start_menu if started = 0
 
 @start_menu
 new-page: true
@@ -22,6 +22,15 @@ Q.month = 1;
 // how many actions have been taken this month?
 Q.month_actions = 0;
 
+// 0 = normal difficulty, 1 = hard mode, 2 = hard mode no saves
+Q.difficulty = 0;
+Q.historical_mode = 0;
+// old demographics
+Q.old_demographics = 0;
+// use decimals for reichstag seats
+// TODO: not yet implemented
+Q.use_decimals = 0;
+
 // party resources
 Q.resources = 2;
 // party dues
@@ -33,9 +42,8 @@ Q.dissent = 0.05;
 Q.dissent_percent = 5;
 
 // factions
-Q.factions = ['left', 'center', 'right'];
+Q.factions = ['left', 'center', 'labor', 'reformist', 'neorevisionist'];
 }
-
 set-bg: img/map_2.jpg
 new-page: true
 
@@ -52,7 +60,7 @@ For more information on the politics and government of the German Republic, see 
 @1903_main
 audio: shuffle music/1928_1930/FruhlingsliedMendelssohn.mp3 music/1928_1930/AUF_HOHEN_BERGEN_noise_reduced.mp3 music/1928_1930/MarekWeber.mp3 music/1928_1930/BAUERNKAPELLE.mp3 music/1928_1933/DERLINDENBAUM_normalized.mp3 music/1928_1933/ZurSonne_zurFreiheit.mp3 music/1928_1933/arbeiter_marseille.mp3 music/1928_1933/Wann_wir_schreiten_Seit_an_Seit.mp3 music/1930_1933/Internationale-de_normalized.ogg music/1928_1930/LiedDerPompadour.mp3 music/1928_1933/SozialistenMarsch.mp3
 new-page: true
-go-to: main
+go-to: main if difficulty >= 0; main.main_easy if difficulty < 0
 
 = 1903
 
