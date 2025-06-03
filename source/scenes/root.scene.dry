@@ -1,7 +1,8 @@
 title: Root Scene
 new-page: true
 # go-to: post_event if started = 1; 
-go-to: start_menu if started = 0
+go-to: start_menu 
+#if started = 0
 
 @start_menu
 new-page: true
