@@ -6,11 +6,8 @@ go-to: start_menu
 
 @start_menu
 new-page: true
-go-to: start_menu_2
 
 = Social Democracy: An Alternate History
-
-@start_menu_2
 
 - @start: Start game
 
