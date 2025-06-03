@@ -1,4 +1,3 @@
-@root
 title: Root Scene
 new-page: true
 go-to: post_event if started = 1; start_menu if started = 0
