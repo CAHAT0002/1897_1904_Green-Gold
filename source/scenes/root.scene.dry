@@ -225,45 +225,46 @@ Q.economic_expansion = 0;
 
 // Support for party by social group
 // they don't have to sum to 100 since the electoral calculations will be normalized.
-Q.workers_pop = 60;
-Q.workers_pat = 20;
-Q.workers_prog = 5;
-Q.workers_rust = 0;
-Q.workers_stats = 0;
-Q.workers_socs = 5;
-Q.workers_other = 10;
+Q.workers_pop = 35;
+Q.workers_pat = 25;
+Q.workers_prog = 30;
+Q.workers_rust = 3;
+Q.workers_stats = 2;
+Q.workers_socs = 0;
+Q.workers_other = 5;
 
-Q.old_middle_pop = 5;
-Q.old_middle_pat = 0;
-Q.old_middle_prog = 5;
-Q.old_middle_rust = 10;
-Q.old_middle_stats = 25;
-Q.old_middle_socs = 25;
-Q.old_middle_other = 10;
+Q.old_middle_pop = 1;
+Q.old_middle_pat = 75;
+Q.old_middle_prog = 12;
+Q.old_middle_rust = 8;
+Q.old_middle_stats = 2;
+Q.old_middle_socs = 0;
+Q.old_middle_other = 2;
 
-Q.new_middle_pop = 5;
-Q.new_middle_pat = 1;
-Q.new_middle_prog = 10;
-Q.new_middle_rust = 25;
-Q.new_middle_stats = 25;
-Q.new_middle_socs = 10;
-Q.new_middle_other = 15;
+Q.new_middle_pop = 2;
+Q.new_middle_pat = 35;
+Q.new_middle_prog = 55;
+Q.new_middle_rust = 2;
+Q.new_middle_stats = 3;
+Q.new_middle_socs = 0;
+Q.new_middle_other = 3;
 
-Q.rural_pop = 10;
-Q.rural_pat = 0;
-Q.rural_prog = 5;
-Q.rural_rust = 5;
-Q.rural_stats = 15;
-Q.rural_socs = 45;
-Q.rural_other = 10;
+Q.rural_pop = 3;
+Q.rural_pat = 55;
+Q.rural_prog = 8;
+Q.rural_rust = 30;
+Q.rural_stats = 2;
+Q.rural_socs = 0;
+Q.rural_other = 2;
 
-Q.unemployed_pop = 25;
-Q.unemployed_pat = 55;
-Q.unemployed_prog = 1;
+Q.unemployed_pop = 35;
+Q.unemployed_pat = 10;
+Q.unemployed_prog = 30;
 Q.unemployed_rust = 0;
-Q.unemployed_stats = 0;
-Q.unemployed_socs = 5;
-Q.unemployed_other = 9;
+Q.unemployed_stats = 20;
+Q.unemployed_socs = 0;
+Q.unemployed_other = 5;
+
 
 
 // Current Folkshus composition
