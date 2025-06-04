@@ -61,7 +61,7 @@ Q.socs_in_government = 0;
 //possible coaltiions
 Q.in_pop_prog_coalition = 0;
 Q.in_pop_rust_coalition = 0;
-Q.in_pop_prog-rust_coalition = 0;
+Q.in_pop_prog_rust_coalition = 0;
 Q.in_pop_socs_coalition = 0;
 
 // emergency government containing the pop: only president Braun can do this.
