@@ -1,0 +1,88 @@
+title: Shuffle Leadership
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: shuffle_leadership_timer = 0 
+on-arrival: month_activities += 1; shuffle_leadership_timer = 8;
+card-image: img/vorwarts_2.jpg
+go-to: rm_main
+
+Changing the leadership of the party is painful, but perhaps it is necessary to adapt to changing circumstances.
+
+Removing advisors will increase dissent from their faction of the party, while selecting advisors will increase a faction's strength.
+
+- @rm_main: Remove advisors
+- @add_advisors: Add advisors
+- @remove_none: Don't change advisors.
+- @easy_discard
+
+
+###################### removing leaders
+
+@rm_main
+title: Remove advisors.
+tags: center_advisor, left_advisor, reformist_advisor, labor_advisor, neorev_advisor, nonfactional_advisor 
+frequency: 1
+
+- #remove_advisor
+- @add_advisors: Add advisors
+
+@remove_none
+title: Stop changing advisors.
+go-to: root
+tags: remove_advisor
+
+####################### adding advisors
+
+@add_advisors
+title: Add advisors
+choose-if: n_advisors < 3
+unavailable-subtitle: Maximum of 3 advisors.
+go-to: advisor_menu
+
+@advisor_menu
+title: Add other advisors.
+tags: center_advisor, left_advisor, reformist_advisor, labor_advisor, neorev_advisor, nonfactional_advisor
+frequency: 1
+
+
+- @centrist: Add Centrists
+- @left: Add Leftists
+- @reformist: Add Reformists
+- @labor: Add Labor
+- @neorev: Add Neorevisionists
+- @nonfactional: Add non-factional advisors
+- @rm_main: Remove advisors instead.
+- @remove_none: Stop changing advisors.
+
+@centrist
+view-if: n_advisors < 3
+
+- #center_advisor
+
+@reformist
+view-if: n_advisors < 3
+
+- #reformist_advisor
+
+@left
+view-if: n_advisors < 3
+
+- #left_advisor
+
+@labor
+view-if: n_advisors < 3
+
+- #labor_advisor
+
+@neorev
+view-if: neorevisionism > 0 and n_advisors < 3
+
+- #neorev_advisor
+
+@nonfactional
+view-if: n_advisors < 3
+
+- #nonfactional_advisor
+
+
