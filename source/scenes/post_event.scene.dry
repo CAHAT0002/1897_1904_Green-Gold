@@ -391,7 +391,6 @@ if (Q.month_actions >= 1) {
             }
         }
     }
-    }
 }
 Q.has_event = 0;
 // check if there are any cards in #event, and then go to main if not.
