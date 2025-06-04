@@ -27,7 +27,11 @@ Internal dissent: [+ dissent_percent : dissent +]
 
 = Government
 
-[? if is_republic = 1 : Ealdorman ?][? if is_perm_regency = 1: Regent ?][? if is_empire = 1 : Ceaser?][? if zelda_abdicated = 0 in?]: [+ headofstate +]
+[? if is_empire = 1 and zelda_abdicated = 0 : Ceaserin ?]
+[? if is_empire = 1 and zelda_abdicated != 0 : Ceaser ?]
+[? if is_republic = 1 : Ealdorman ?]
+[? if is_perm_regency = 1: Regent ?]
+[+ headofstate +]
 
 Grand Executor: [+ executor +] ([+ executor_party +])
 
@@ -79,19 +83,19 @@ Public opinion on government: [+ public_opinion_on_gov +]
 
 = Regional Control
 
-Mercia: [? [+ mercia_government +] controlled ?]
+Mercia: [+ mercia_government +] controlled
 
-Lunden: [? [+ lunden_government +] controlled ?]
+Lunden: [+ lunden_government +] controlled
 
-Weald: [? [+ weald_government +] controlled ?]
+Weald: [+ weald_government +] controlled
 
-Wessex: [? [+ wessex_government +] controlled ?]
+Wessex: [+ wessex_government +] controlled
 
-Northumbria: [? [+ northumbria_government +] controlled ?]
+Northumbria: [+ northumbria_government +] controlled 
 
-Austlonds: [? [+ austlonds_government +] controlled ?]
+Austlonds: [+ austlonds_government +] controlled 
 
-Kernow: [? [+ kernow_government +] controlled ?]
+Kernow: [+ kernow_government +] controlled
 
 = Internal Factions of the Werudforeng
 
