@@ -267,13 +267,13 @@ Q.socs_r = 0;
 Q.other_r = 1;
 
 // diff from prev
-Q.pat_r = 49;
-Q.prog_r = 30;
-Q.pop_r = 10;
-Q.rust_r = 8;
-Q.stat_r = 2;
-Q.socs_r = 0;
-Q.other_r = 1;
+Q.old_pat_r = 49;
+Q.old_prog_r = 30;
+Q.old_pop_r = 10;
+Q.old_rust_r = 8;
+Q.old_stat_r = 2;
+Q.old_socs_r = 0;
+Q.old_other_r = 1;
 
 // Events: what has occurred?
 Q.panzerkreuzer_seen = 0;
@@ -290,7 +290,7 @@ Q.n_advisors = 3;
 // timer - this decrements by 1 every turn, and is set to 5 whenever an advisor action is used, so that you can only use one advisor action every 5 months.
 // let's just put all of the timers here...
 // most party affairs and government affairs cards are on a timer.
-Q.timers = ['advisor_action', 
+Q.timers = ['advisor_action'
 
             // govt
             
@@ -313,9 +313,8 @@ Q.next_election_time = 12;
 
 // government affairs timers
 
-
-
 !}
+
 set-bg: img/map_2.jpg
 new-page: true
 
