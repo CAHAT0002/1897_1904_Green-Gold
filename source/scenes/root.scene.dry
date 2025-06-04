@@ -92,6 +92,7 @@ Q.is_perm_regency = 0;
 Q.is_republic = 0;
 
 
+
 // organizations
 
 // inter-party relations
@@ -170,6 +171,8 @@ Q.union_council_loyalty = 1;
 
 // popular opinion
 // national ideology - on a binary scale
+//public opinion on the government.
+Q.public_opinion_on_gov = 0
 // nationalism vs internationalism or pacifism or non-nationalism
 Q.nationalism = 60;
 // socialism vs capitalism
@@ -189,8 +192,6 @@ Q.constructive_vonc = 0;
 Q.presidential_powers = 0;
 // allows banning of non-constitutional parties
 Q.constitutional_protection = 0;
-Q.pat_banned = 0;
-Q.nsdap_banned = 0;
 
 // coups and capital strikes happen when you upset the right or the capitalists too much with your policies. they're an additional check on your policies, when purely electoral checks don't suffice.
 // when coup_progress reaches 10 or capital_strike_progress reaches 10, there's a special event that launches the coup.
@@ -199,16 +200,26 @@ Q.capital_strike_progress = 0;
 
 Q.budget = 4;
 
-// Proportion of different social groups
-// source: https://surface.syr.edu/cgi/viewcontent.cgi?filename=3&article=1016&context=books&type=additional page 45, table 3.4 - using 1925 figures
-Q.workers = 48; // industry and trade
-Q.old_middle = 13; // "old mittelstand"
-// 16.4 trade & commerce, 6.6 public and private services, 4.4 domestic help
-Q.new_middle = 14; // "new mittelstand"
-Q.rural = 25; // agriculture and forestry employment... but many of those are proletarians so...
-// source: https://surface.syr.edu/cgi/viewcontent.cgi?filename=3&article=1016&context=books&type=additional page 43, table 3.3
-Q.unemployed = 8.6;
-Q.catholics = 30;
+Q.workers = 51; // industry and trade
+
+Q.old_middle = 8; // "old mittelstand"
+
+Q.new_middle = 20; // "new mittelstand"
+
+Q.rural = 18; // agriculture and forestry employment... but many of those are proletarians so...
+
+Q.unemployed = 3;
+
+
+// inflation (in %; 1928: 2.9; 1929: 0; 1930: -5%; 1931: -10%; 1932: -10%) - source: https://en.wikipedia.org/wiki/File:BSPDRWeltkriseEngl.PNG, derived from https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/2009/03/rezession-betrachtung-032009.pdf?__blob=publicationFile
+Q.inflation = 2.9;
+
+// economic growth - same source as above, Table 2 (preisbereinigt) - this is also the source for the yearly changes in the great depression.
+Q.economic_growth = .5;
+
+// economic expansion timer
+Q.economic_expansion = 0;
+
 
 Q.classes = ['workers', 'old_middle', 'new_middle', 'rural', 'unemployed'];
 Q.parties = ['pop', 'pat', 'prog', 'rust', 'stats', 'socs', 'other'];
@@ -283,6 +294,16 @@ Q.unemployment_insurance_seen = 0;
 // unemployment insurance event is seen if the unemployment level is at least 4 more than the threshold...
 Q.unemployment_insurance_threshold = 10;
 Q.blutmai = 0;
+
+
+
+
+// array of objects of the form {date: Date(), spd: 10, kpd: 12, ...} for each election
+Q.election_records = [];
+// party support records for every month
+Q.party_support_records = [];
+// inflation and unemployment records
+Q.economic_records = [];
 
 
 // Advisors/Leaders
