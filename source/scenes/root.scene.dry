@@ -225,8 +225,8 @@ Q.economic_expansion = 0;
 
 // Support for party by social group
 // they don't have to sum to 100 since the electoral calculations will be normalized.
-Q.workers_pop = 35;
-Q.workers_pat = 25;
+Q.workers_pop = 32;
+Q.workers_pat = 28;
 Q.workers_prog = 30;
 Q.workers_rust = 3;
 Q.workers_stats = 2;
