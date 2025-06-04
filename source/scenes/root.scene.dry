@@ -59,10 +59,10 @@ Q.rust_in_government = 0;
 Q.socs_in_government = 0;
 
 //possible coaltiions
-Q.in_pop-prog_coalition = 0;
-Q.in_pop-rust_coalition = 0;
-Q.in_pop-prog-rust_coalition = 0;
-Q.in_pop-socs_coalition = 0;
+Q.in_pop_prog_coalition = 0;
+Q.in_pop_rust_coalition = 0;
+Q.in_pop_prog-rust_coalition = 0;
+Q.in_pop_socs_coalition = 0;
 
 // emergency government containing the pop: only president Braun can do this.
 Q.in_emergency_government = 0;
@@ -84,7 +84,7 @@ Q.pop_toleration = 0;
 Q.minority_government = 1;
 
 Q.classes = ['workers', 'old_middle', 'new_middle', 'rural', 'unemployed'];
-Q.parties = ['populists', 'paternalist', 'progress', 'statists', 'rustiks', 'socialist', 'other'];
+Q.parties = ['pop', 'pat', 'prog', 'rust', 'stats', 'socs', 'other'];
 
 //government state
 Q.is_empire = 1;
@@ -221,8 +221,6 @@ Q.economic_growth = .5;
 Q.economic_expansion = 0;
 
 
-Q.classes = ['workers', 'old_middle', 'new_middle', 'rural', 'unemployed'];
-Q.parties = ['pop', 'pat', 'prog', 'rust', 'stats', 'socs', 'other'];
 
 // Support for party by social group
 // they don't have to sum to 100 since the electoral calculations will be normalized.
