@@ -135,15 +135,17 @@ Freifolksbund Militarization: [+ ffb_militancy : militancy +]
 
 Vigilance Societies Militarization: [+ vs_militancy : militancy +]
 
-[? if lc_formed = 1 : {!<span class="tooltip-text" title="Lind Clubs are progressive paramilitary organizations.">Lind Clubs</span>!} Strength: [+ lc_strength_2 +] thousand
+[? if lc_formed = 1 :
+{!<span class="tooltip-text" title="Lind Clubs are progressive paramilitary organizations.">Lind Clubs</span>!} Strength: [+ lc_strength_2 +] thousand
 [? if lc_banned = 1 : (BANNED) ?]
+Lind Clubs Militarization: [+ lc_militancy : militancy +]
+?]
 
-Lind Clubs Militarization: [+ lc_militancy : militancy +] ?]
-
-[? if rg_formed = 1 : {!<span class="tooltip-text" title="Red Gold Militias are socialist paramilitary groups.">Red Gold Militias</span>!} Strength: [+ rg_strength_2 +] thousand
+[? if rg_formed = 1 :
+{!<span class="tooltip-text" title="Red Gold Militias are socialist paramilitary groups.">Red Gold Militias</span>!} Strength: [+ rg_strength_2 +] thousand
 [? if rg_banned = 1 : (BANNED) ?]
-
-Red Gold Militias Militarization: [+ rg_militancy : militancy +] ?]
+Red Gold Militias Militarization: [+ rg_militancy : militancy +]
+?]
 
 = Official military/security forces
 
