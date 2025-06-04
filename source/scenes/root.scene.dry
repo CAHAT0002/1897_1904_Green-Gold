@@ -268,22 +268,22 @@ Q.unemployed_other = 9;
 
 // Current Folkshus composition
 // % of Folkshus in Jan 1897
-Q.pat_r = 49;
-Q.prog_r = 30;
-Q.pop_r = 10;
-Q.rust_r = 8;
-Q.stat_r = 2;
-Q.socs_r = 0;
-Q.other_r = 1;
+Q.pat_f = 49;
+Q.prog_f = 30;
+Q.pop_f = 10;
+Q.rust_f = 8;
+Q.stat_f = 2;
+Q.socs_f = 0;
+Q.other_f = 1;
 
 // diff from prev
-Q.old_pat_r = 49;
-Q.old_prog_r = 30;
-Q.old_pop_r = 10;
-Q.old_rust_r = 8;
-Q.old_stat_r = 2;
-Q.old_socs_r = 0;
-Q.old_other_r = 1;
+Q.old_pat_f = 49;
+Q.old_prog_f = 30;
+Q.old_pop_f = 10;
+Q.old_rust_f = 8;
+Q.old_stat_f = 2;
+Q.old_socs_f = 0;
+Q.old_other_f = 1;
 
 // Events: what has occurred?
 Q.panzerkreuzer_seen = 0;
