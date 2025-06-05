@@ -1,0 +1,252 @@
+title: Folkshus Elections
+new-page: true
+tags: event
+priority: -1
+view-if: (year = next_election_year and month >= next_election_month) or (year > next_election_year)
+on-departure: month_actions += 1; in_election = 0; next_election_year = next_election_year + 4; n_elections += 1; next_election_time = time + 48; richmondson_chancellor_timer = 4;
+set-jump: post_election_1897
+face-image: img/Rothe_Wahlen_1903.jpg
+
+# the low priority means that this event is only seen after all other events are resolved for the month.
+
+= Elections, [+ month : month +] [+ year +]
+
+The Folkshus elections are to be held now.
+
+- @election_algorithm: May we do our best...
+
+@zelda_cancel_elections
+on-departure: next_election_year = next_election_year + 1; next_election_time = time + 12; pro_republic -= 10; prog_relation -= 8; rust_relation -= 8; pat_relation -= 10; socs_relation -= 8; coup_progress += 2; workers_pop -= 4; new_middle_pop -= 5; old_middle_pop -= 5; rural_pop -= 5; unemployed_pop -= 5; coup_progress += 2 if stats_normalized >= 0.3; coup_progress += 2 if stats_normalized + rust_normalized >= 0.5; ffb_strength += 100 if coup_progress >= 7; vs_strength += 100 if coup_progress >= 7
+achievement: ausnahmezustand
+
+Fine. Queen [+ headofstate +] has taken the unprecedented step of canceling these elections. New elections are scheduled for [+ next_election_month : month +] [+ next_election_year +].
+
+Let us hope this does not backfire.
+
+@post_election_1897
+on-arrival: {!
+// set old results
+// election threshold constitutional reform
+// banning parties
+var new_party_sum = 0;
+for (var party of Q.parties) {
+    Q['old_' + party + '_f'] = Q[party + '_f'];
+    if (Q.constitutional_reform > 0) {
+        if (Q[party + '_votes'] < Q.electoral_threshold || (Q.electoral_threshold > 1 && party == 'other') || Q[party + '_banned']) {
+            Q[party + '_f'] = 0;
+        } else {
+            Q[party + '_f'] = Q[party + '_votes'];
+        }
+        new_party_sum += Q[party + '_f'];
+    } else {
+        Q[party + '_f'] = Q[party + '_votes'];
+    }
+    // if we use decimals, then we might want to truncate the numbers
+    if (Q.use_decimals) {
+        Q[party + '_f_disp'] = Q[party+'_f'].toFixed(1);
+    } else {
+        Q[party + '_f_disp'] = Q[party+'_f'];
+    }
+    Q['change_' + party + '_f'] = Q[party + '_f'] - Q['old_' + party + '_f'];
+    var sign = Q['change_' + party + '_f'] > 0 ? '+'  : '';
+    Q['str_change_' + party] = sign + Q['change_' + party + '_f'];
+}
+// calculate new party sum if electoral reform
+if (Q.electoral_threshold && Q.electoral_threshold > 0) {
+    for (var party of Q.parties) {
+        if (Q[party + '_f'] > 0) {
+            if (Q.use_decimals) {
+                Q[party + '_f'] = Math.round(Q[party + '_f']*1000/new_party_sum)/10;
+            } else {
+                Q[party + '_f'] = Math.round(Q[party + '_f']*100/new_party_sum);
+            }
+        }
+        if (Q.use_decimals) {
+            Q[party + '_f_disp'] = Q[party+'_f'].toFixed(1);
+        } else {
+            Q[party + '_f_disp'] = Q[party+'_f'];
+        }
+        Q['change_' + party + '_f'] = Q[party + '_f'] - Q['old_' + party + '_f'];
+        var sign = Q['change_' + party + '_f'] > 0 ? '+'  : '';
+        Q['str_change_' + party] = sign + Q['change_' + party + '_f'];
+    }
+}
+
+// Revised coalition definitions based on realistic political combinations
+
+// Left-wing coalitions
+Q.left_coalition = Q.socs_f + Q.pop_f;
+
+// Populist coalitions
+Q.populist_right_coalition = Q.pop_f + Q.rust_f;
+
+// Progressive coalitions
+Q.progressive_coalition = Q.prog_f + Q.rust_f;
+
+// Conservative coalitions
+Q.conservative_coalition = Q.pat_f + Q.rust_f;
+Q.authoritarian_coalition = Q.pat_f + Q.rust_f + Q.stats_f;
+Q.broad_center_right_coalition = Q.prog_f + Q.pat_f + Q.rust_f + Q.stats_f;
+
+// Grand coalition (all major parties)
+Q.grand_coalition = Q.pop_f + Q.socs_f + Q.prog_f + Q.pat_f + Q.rust_f + Q.stats_f + Q.other_f;
+
+//Coaltions which lead can flip between
+Q.left_centre_coalition = Q.pop_f + Q.prog_f;
+Q.broad_left_centre_coalition = Q.pop_f + Q.prog_f + Q.rust_f;
+Q.center_coalition = Q.prog_f + Q.pat_f;
+Q.centre_right_coalition = Q.prog_f + Q.pat_f + Q.rust_f;
+
+Q.leverage = Q.pop_f;
+
+Q.grand_coalition_failed = 0;
+// Reset government and ministers... Based on current govt
+Q.coalition_dissent = 0;
+Q.socs_coalition_dissent = 0;
+Q.pop_in_government = 0;
+Q.in_populist_coalition = 0;
+Q.in_grand_coalition = 0;
+Q.in_left_front = 0;
+Q.in_popular_front = 0;
+Q.in_emergency_government = 0;
+Q.in_minority_government = 0;
+Q.in_unity_government = 0;
+Q.pop_toleration = 0;
+Q.pop_caretaker = 0;
+Q.foreign_minister_party = 'RUST';
+Q.interior_minister_party = 'PROG';
+Q.justice_minister_party = 'I';
+Q.labor_minister_party = 'PROG';
+Q.defense_minister_party = 'I';
+Q.economic_minister_party = 'PAT';
+Q.finance_minister_party = 'RUST';
+Q.agriculture_minister_party = 'PROG';
+
+Q.strike_term_seen = 0;
+
+Q.prog_minus_local_f = Q.prog_f - 3;
+
+// understanding the enemy
+if (Q.stats_f >= 15) {
+    Q.understanding_enemy_timer = 2;
+}
+
+var election_result = {'date': new Date(Q.year, Q.month - 1)};
+for (var party of Q.parties) {
+    election_result[party] = Q[party + '_f'];
+}
+Q.election_records.push(election_result);
+!}
+on-departure: authoritarian_urgency = 1 if (authoritarian_urgency == 0 and stats_f >= 15)
+on-display: {!
+data = [
+    {
+        "id": "socs",
+        "legend": "Socialists",
+        "name": "Socialists",
+        "seats": Math.round(Q.socs_f*5),
+    },
+    {
+        "id": "pop",
+        "legend": "Populists",
+        "name": "Populists",
+        "seats": Math.round(Q.pop_f*5),
+    },
+    {
+        "id": "pat",
+        "legend": "Paternalists",
+        "name": "Paternalists",
+        "seats": Math.round(Q.pat_f*5),
+    },
+    {
+        "id": "prog",
+        "legend": "Progress",
+        "name": "Progress",
+        "seats": Math.round((Q.prog_f - 3)*5),
+    },
+    {
+        "id": "rust",
+        "legend": "Rustiks",
+        "name": "Rustiks",
+        "seats": Math.round(Q.rust_f*5),
+    },
+    {
+        "id": "stats",
+        "legend": "Statists",
+        "name": "Statists",
+        "seats": Math.round(Q.stats_f*5),
+    },
+    {
+        "id": "other",
+        "legend": "Other",
+        "name": "Other",
+        "seats": Math.round(Q.other_f*5),
+    },
+];
+
+if (window && d3) {
+    var width = 500; 
+    var height = 500;
+    var screenWidth = document.getElementById('content').offsetWidth;
+    if (screenWidth < width - 50) {
+        width = screenWidth - 50; 
+        height = width;
+        document.getElementById("folkshus").style.height = screenWidth/2 + "px";
+    } 
+
+    var parliament = d3.parliament();
+    parliament.width(width).height(height).innerRadiusCoef(0.4);
+    parliament.enter.fromCenter(true).smallToBig(true);
+    parliament.exit.toCenter(false).bigToSmall(true);
+    d3.select("#folkshus").datum(data).call(parliament);
+}
+!}
+go-to: coalition_menu
+
+= Election results
+
+{!<svg id="folkshus" style="width: 500px; height: 250px;"> </svg>!}
+
+{!<table>!} 
+{!<tr><td>Party</td><td>Vote share</td><td>% Change</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **POP:** {!</td><td>!} **[+ pop_f +]%** {!</td><td>!} **[+ str_change_pop +]** {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#8B0000'> </div> !}SOCS: {!</td><td>!} [+ socs_f +]% {!</td><td>!} [+ str_change_socs +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#DCCA4A'> </div> !} PAT: {!</td><td>!} [+ pat_f +]% {!</td><td>!} [+ str_change_pat +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#000'> </div> !} PROG: {!</td><td>!} [+ prog_minus_local_f +]% {!</td><td>!} [+ str_change_prog +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#69A2BE'> </div> !} LOCAL: {!</td><td>!} 3% {!</td><td>!} 0 {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#D5AC27'> </div> !} RUST: {!</td><td>!} [+ rust_f +]% {!</td><td>!} [+ str_change_rust +] {!</td></tr>!}
+ 
+{!<tr><td><div class="box" style='background-color:#a0a0a0'> </div> !} Others: {!</td><td>!} [+ other_f +] % {!</td><td>!} [+ str_change_other +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#954B00'> </div> !} STATS: {!</td><td>!} [+ stats_f +]% {!</td><td>!} [+ str_change_stats +] {!</td></tr>!}
+{!</table>!}
+
+**Potential coalitions:**
+
+Populist Coalition (POP + PROG + PAT): [+ populist_coalition +]%
+
+Grand Coalition (POP + PROG + PAT + RUST): [+ grand_coalition +]%
+
+Bourgeois Coalition (PROG + PAT + RUST + Others): [+ bourgeois_coalition +]%
+
+Right-wing Coalition (PROG + RUST + Others + STATS): [+ right_coalition +]%
+
+There are some potential coalition arrangements.
+
+@coalition_menu
+
+#- @pop_majority
+#- @populist_coalition
+#- @grand_coalition
+#- @new_grand_coalition
+#- @unity_government
+#- @far_right_coalition
+#- @no_majority
+#- @left_coalition
+#- @popular_front_coalition
+#- @right_coalition

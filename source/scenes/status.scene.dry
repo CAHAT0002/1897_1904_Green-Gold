@@ -35,7 +35,7 @@ Internal dissent: [+ dissent_percent : dissent +]
 
 Grand Executor: [+ executor +] ([+ executor_party +])
 
-Folkshus composition:
+Folkshus composition (300 for Majority):
 
 {!<span class="tooltip-text" title="Populist Party">POP</span>!}: [+ pop_f +] Seats
 {!<span class="tooltip-text" title="Patriotic Party">PAT</span>!}: [+ pat_f +] Seats
