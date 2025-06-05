@@ -37,12 +37,12 @@ Grand Executor: [+ executor +] ([+ executor_party +])
 
 Folkshus composition:
 
-{!<span class="tooltip-text" title="Populist Party">POP</span>!}: [+ pop_f +]%
-{!<span class="tooltip-text" title="Patriotic Party">PAT</span>!}: [+ pat_f +]%
-{!<span class="tooltip-text" title="Progressive Party">PROG</span>!}: [+ prog_f +]%
-{!<span class="tooltip-text" title="Statist Party">STATS</span>!}: [+ stat_f +]%
-{!<span class="tooltip-text" title="Rust Party">RUST</span>!}: [+ rust_f +]%
-{!<span class="tooltip-text" title="Socialist Party">SOCS</span>!}: [+ socs_f +]%
+{!<span class="tooltip-text" title="Populist Party">POP</span>!}: [+ pop_f +] Seats
+{!<span class="tooltip-text" title="Patriotic Party">PAT</span>!}: [+ pat_f +] Seats
+{!<span class="tooltip-text" title="Progressive Party">PROG</span>!}: [+ prog_f +] Seats
+{!<span class="tooltip-text" title="Statist Party">STATS</span>!}: [+ stat_f +] Seats
+{!<span class="tooltip-text" title="Rust Party">RUST</span>!}: [+ rust_f +] Seats
+{!<span class="tooltip-text" title="Socialist Party">SOCS</span>!}: [+ socs_f +] Seats
 Others: [+ other_f +]%
 
 [? if pop_in_government = 1 : Budget: [+ budget +] ?]

@@ -233,58 +233,57 @@ Q.workers_stats = 2;
 Q.workers_socs = 0;
 Q.workers_other = 5;
 
-Q.old_middle_pop = 1;
-Q.old_middle_pat = 75;
+Q.old_middle_pop = 3;
+Q.old_middle_pat = 73;
 Q.old_middle_prog = 12;
 Q.old_middle_rust = 8;
 Q.old_middle_stats = 2;
 Q.old_middle_socs = 0;
 Q.old_middle_other = 2;
 
-Q.new_middle_pop = 2;
-Q.new_middle_pat = 35;
-Q.new_middle_prog = 55;
+Q.new_middle_pop = 7;
+Q.new_middle_pat = 31;
+Q.new_middle_prog = 52;
 Q.new_middle_rust = 2;
 Q.new_middle_stats = 3;
 Q.new_middle_socs = 0;
 Q.new_middle_other = 3;
 
 Q.rural_pop = 3;
-Q.rural_pat = 55;
+Q.rural_pat = 40;
 Q.rural_prog = 8;
-Q.rural_rust = 30;
+Q.rural_rust = 45;
 Q.rural_stats = 2;
 Q.rural_socs = 0;
 Q.rural_other = 2;
 
-Q.unemployed_pop = 35;
-Q.unemployed_pat = 10;
-Q.unemployed_prog = 30;
+Q.unemployed_pop = 33;
+Q.unemployed_pat = 11;
+Q.unemployed_prog = 29;
 Q.unemployed_rust = 0;
-Q.unemployed_stats = 20;
+Q.unemployed_stats = 21;
 Q.unemployed_socs = 0;
-Q.unemployed_other = 5;
-
+Q.unemployed_other = 6;
 
 
 // Current Folkshus composition
-// % of Folkshus in Jan 1897
-Q.pat_f = 49;
-Q.prog_f = 30;
-Q.pop_f = 10;
-Q.rust_f = 8;
-Q.stat_f = 2;
-Q.socs_f = 0;
-Q.other_f = 1;
+// Seats in Folkshus in Jan 1897
+Q.pat_f = 298;
+Q.prog_f = 182;
+Q.pop_f = 57;
+Q.rust_f = 44;
+Q.stat_f = 14;
+Q.socs_f = 1;
+Q.other_f = 5;
 
 // diff from prev
-Q.old_pat_f = 49;
-Q.old_prog_f = 30;
-Q.old_pop_f = 10;
-Q.old_rust_f = 8;
-Q.old_stat_f = 2;
-Q.old_socs_f = 0;
-Q.old_other_f = 1;
+Q.old_pat_f = 298;
+Q.old_prog_f = 182;
+Q.old_pop_f = 57;
+Q.old_rust_f = 44;
+Q.old_stat_f = 14;
+Q.old_socs_f = 1;
+Q.old_other_f = 5;
 
 // Events: what has occurred?
 Q.panzerkreuzer_seen = 0;
