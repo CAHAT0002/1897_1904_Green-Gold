@@ -15,6 +15,6 @@ Should trigger:
 [+ month +] >= [+ next_election_month +]
 
 Election time logic: 
-[+ time >= next_election_time +]
+[+ time +] >= [+ next_election_time +]
 
 @done
