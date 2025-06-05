@@ -2,123 +2,105 @@
  * MIT License
  * © Copyright 2016 - Geoffrey Brossard (me@geoffreybrossard.fr)
  */
-
+// D3 Parliament plugin (fixed version)
 d3.parliament = function() {
-    /* params */
     var width,
         height,
         innerRadiusCoef = 0.4;
 
-    /* animations */
     var enter = {
             "smallToBig": true,
             "fromCenter": true
         },
         update = {
-          'animate': true,
+            'animate': true,
         },
         exit = {
             "bigToSmall": true,
             "toCenter": true
         };
 
-    /* events */
     var parliamentDispatch = d3.dispatch("click", "dblclick", "mousedown", "mouseenter",
         "mouseleave", "mousemove", "mouseout", "mouseover", "mouseup", "touchcancel", "touchend",
         "touchmove", "touchstart");
 
-    function parliament(data) {
-        console.log(data);
-        return this.each(function() {
-        var d = data;
-        
-            // if user did not provide, fill the svg:
-            width = width ? width : this.getBoundingClientRect().width;
-            height = width ? width / 2 : this.getBoundingClientRect().width/2;
+    function parliament(selection) {
+        selection.each(function(d) {
+            // Fix: Use the actual width/height if provided, otherwise use getBoundingClientRect
+            var actualWidth = width || this.getBoundingClientRect().width || 500;
+            var actualHeight = height || actualWidth / 2;
 
-            var outerParliamentRadius = Math.min(width/2, height);
+            var outerParliamentRadius = Math.min(actualWidth/2, actualHeight);
             var innerParliementRadius = outerParliamentRadius * innerRadiusCoef;
 
-            /* init the svg */
             var svg = d3.select(this);
 
-            /***
-             * compute number of seats and rows of the parliament */
+            // Calculate total seats
             var nSeats = 0;
-            d.forEach(function(p) { nSeats += (typeof p.seats === 'number') ? Math.floor(p.seats) : p.seats.length; });
+            d.forEach(function(p) { 
+                nSeats += (typeof p.seats === 'number') ? Math.floor(p.seats) : p.seats.length; 
+            });
 
+            // Calculate rows
             var nRows = 0;
             var maxSeatNumber = 0;
             var b = 0.5;
-            (function() {
-                var a = innerRadiusCoef / (1 - innerRadiusCoef);
-                while (maxSeatNumber < nSeats) {
-                    nRows++;
-                    b += a;
-                    /* NOTE: the number of seats available in each row depends on the total number
-                    of rows and floor() is needed because a row can only contain entire seats. So,
-                    it is not possible to increment the total number of seats adding a row. */
-                    maxSeatNumber = series(function(i) { return Math.floor(Math.PI * (b + i)); }, nRows-1);
-                }
-            })();
+            var a = innerRadiusCoef / (1 - innerRadiusCoef);
+            
+            while (maxSeatNumber < nSeats) {
+                nRows++;
+                b += a;
+                maxSeatNumber = series(function(i) { return Math.floor(Math.PI * (b + i)); }, nRows-1);
+            }
 
-
-            /***
-             * create the seats list */
-            /* compute the cartesian and polar coordinates for each seat */
+            // Create seats
             var rowWidth = (outerParliamentRadius - innerParliementRadius) / nRows;
             var seats = [];
-            (function() {
-                var seatsToRemove = maxSeatNumber - nSeats;
-                for (var i = 0; i < nRows; i++) {
-                    var rowRadius = innerParliementRadius + rowWidth * (i + 0.5);
-                    var rowSeats = Math.floor(Math.PI * (b + i)) - Math.floor(seatsToRemove / nRows) - (seatsToRemove % nRows > i ? 1 : 0);
-                    var anglePerSeat = Math.PI / rowSeats;
-                    for (var j = 0; j < rowSeats; j++) {
-                        var s = {};
-                        s.polar = {
-                            r: rowRadius,
-                            teta: -Math.PI + anglePerSeat * (j + 0.5)
-                        };
-                        s.cartesian = {
-                            x: s.polar.r * Math.cos(s.polar.teta),
-                            y: s.polar.r * Math.sin(s.polar.teta)
-                        };
-                        seats.push(s);
-                    }
-                };
-            })();
+            var seatsToRemove = maxSeatNumber - nSeats;
+            
+            for (var i = 0; i < nRows; i++) {
+                var rowRadius = innerParliementRadius + rowWidth * (i + 0.5);
+                var rowSeats = Math.floor(Math.PI * (b + i)) - Math.floor(seatsToRemove / nRows) - (seatsToRemove % nRows > i ? 1 : 0);
+                var anglePerSeat = Math.PI / rowSeats;
+                
+                for (var j = 0; j < rowSeats; j++) {
+                    var s = {};
+                    s.polar = {
+                        r: rowRadius,
+                        teta: -Math.PI + anglePerSeat * (j + 0.5)
+                    };
+                    s.cartesian = {
+                        x: s.polar.r * Math.cos(s.polar.teta),
+                        y: s.polar.r * Math.sin(s.polar.teta)
+                    };
+                    seats.push(s);
+                }
+            }
 
-            /* sort the seats by angle */
+            // Sort seats by angle
             seats.sort(function(a,b) {
                 return a.polar.teta - b.polar.teta || b.polar.r - a.polar.r;
             });
 
-            /* fill the seat objects with data of its party and of itself if existing */
-            (function() {
-                var partyIndex = 0;
-                var seatIndex = 0;
-                seats.forEach(function(s) {
-                    /* get current party and go to the next one if it has all its seats filled */
-                    var party = d[partyIndex];
-                    var nSeatsInParty = typeof party.seats === 'number' ? party.seats : party.seats.length;
-                    if (seatIndex >= nSeatsInParty) {
-                        partyIndex++;
-                        seatIndex = 0;
-                        party = d[partyIndex];
-                    }
+            // Assign parties to seats
+            var partyIndex = 0;
+            var seatIndex = 0;
+            seats.forEach(function(s) {
+                var party = d[partyIndex];
+                var nSeatsInParty = typeof party.seats === 'number' ? party.seats : party.seats.length;
+                
+                if (seatIndex >= nSeatsInParty) {
+                    partyIndex++;
+                    seatIndex = 0;
+                    party = d[partyIndex];
+                }
 
-                    /* set party data */
-                    s.party = party;
-                    s.data = typeof party.seats === 'number' ? null : party.seats[seatIndex];
+                s.party = party;
+                s.data = typeof party.seats === 'number' ? null : party.seats[seatIndex];
+                seatIndex++;
+            });
 
-                    seatIndex++;
-                });
-            })();
-
-
-            /***
-             * helpers to get value from seat data */
+            // Helper functions
             var seatClasses = function(d) {
                 var c = "seat ";
                 c += (d.party && d.party.id) || "";
@@ -127,7 +109,6 @@ d3.parliament = function() {
             var seatX = function(d) { return d.cartesian.x; };
             var seatY = function(d) { return d.cartesian.y; };
             var seatColor = function(d) { return d.party.color; };
-            var seatOutline = function(d) { return d.party.outline; };
             var seatRadius = function(d) {
                 var r = 0.4 * rowWidth;
                 if (d.data && typeof d.data.size === 'number') {
@@ -136,31 +117,33 @@ d3.parliament = function() {
                 return r;
             };
 
-
-            /***
-             * fill svg with seats as circles */
-            /* container of the parliament */
+            // Create parliament container
             var container = svg.select(".parliament");
             if (container.empty()) {
                 container = svg.append("g");
                 container.classed("parliament", true);
             }
-            container.attr("transform", "translate(" + width / 2 + "," + outerParliamentRadius + ")");
+            container.attr("transform", "translate(" + actualWidth / 2 + "," + outerParliamentRadius + ")");
 
-            /* all the seats as circles */
+            // Create circles for seats
             var circles = container.selectAll(".seat").data(seats);
-            circles.attr("class", seatClasses);
-
-            /* animation adding seats to the parliament */
+            
+            // Remove old circles
+            circles.exit().remove();
+            
+            // Add new circles
             var circlesEnter = circles.enter().append("circle");
             circlesEnter.attr("class", seatClasses);
             circlesEnter.attr("cx", enter.fromCenter ? 0 : seatX);
             circlesEnter.attr("cy", enter.fromCenter ? 0 : seatY);
             circlesEnter.attr("r", enter.smallToBig ? 0 : seatRadius);
             circlesEnter.attr("fill", seatColor);
-            circlesEnter.attr("stroke", seatOutline);
+            circlesEnter.attr("stroke", "#333");
+            circlesEnter.attr("stroke-width", 0.5);
+
+            // Animate entrance
             if (enter.fromCenter || enter.smallToBig) {
-                var t = circlesEnter.transition().duration(function() { return 1000 + Math.random()*800; });
+                var t = circlesEnter.transition().duration(1000);
                 if (enter.fromCenter) {
                     t.attr("cx", seatX);
                     t.attr("cy", seatY);
@@ -170,38 +153,12 @@ d3.parliament = function() {
                 }
             }
 
-            /* circles catch mouse and touch events */
-            for (var evt in parliamentDispatch._) {
-                (function(evt){
-                    circlesEnter.on(evt, function(e) { parliamentDispatch.call(evt, this, e); });
-                })(evt);
-            }
-
-            /* animation updating seats in the parliament */
-            if (update.animate) {
-              var circlesUpdate = circles.transition().duration(function() { return 1000 + Math.random()*800; });
-            } else {
-              var circlesUpdate = circles;
-            }
-              circlesUpdate.attr("cx", seatX)
+            // Update existing circles
+            circles.merge(circlesEnter)
+                .attr("cx", seatX)
                 .attr("cy", seatY)
                 .attr("r", seatRadius)
-                .attr("fill", seatColor)
-                .attr("stroke", seatOutline);
-
-            /* animation removing seats from the parliament */
-            if (exit.toCenter || exit.bigToSmall) {
-                var t = circles.exit().transition().duration(function() { return 1000 + Math.random()*800; });
-                if (exit.toCenter) {
-                    t.attr("cx", 0).attr("cy", 0);
-                }
-                if (exit.bigToSmall) {
-                    t.attr("r", 0);
-                }
-                t.remove();
-            } else {
-                circles.exit().remove();
-            }
+                .attr("fill", seatColor);
         });
     }
 
@@ -211,9 +168,9 @@ d3.parliament = function() {
         return parliament;
     };
 
-    /** Deprecated since v1.0.1 */
     parliament.height = function(value) {
         if (!arguments.length) return height;
+        height = value;
         return parliament;
     };
 
@@ -236,14 +193,6 @@ d3.parliament = function() {
         }
     };
 
-    parliament.update = {
-      animate: function(value) {
-        if (!arguments.length) return update.animate;
-        update.animate = value;
-        return parliament.update;
-      }
-    }
-
     parliament.exit = {
         bigToSmall: function (value) {
             if (!arguments.length) return exit.bigToSmall;
@@ -257,13 +206,13 @@ d3.parliament = function() {
         }
     };
 
-    parliament.on = function(type, callback) {
-        parliamentDispatch.on(type, callback);
-    }
-
     return parliament;
 
-    // util
-    function series(s, n) { var r = 0; for (var i = 0; i <= n; i++) { r+=s(i); } return r; }
-
-}
+    function series(s, n) { 
+        var r = 0; 
+        for (var i = 0; i <= n; i++) { 
+            r += s(i); 
+        } 
+        return r; 
+    }
+};
