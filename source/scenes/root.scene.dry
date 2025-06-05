@@ -47,7 +47,7 @@ Q.reformist_dissent = 5;
 
 
 // State of the government
-Q.headofstate = "Zelda of House Tostig-Byrben";
+Q.headofstate = "Zelda";
 // starting chancellor: Ludvig Richmondson
 Q.executor = "Richmondson";
 Q.executor_party = "Beowaranforeng";

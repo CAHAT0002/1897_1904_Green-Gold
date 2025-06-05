@@ -19,7 +19,7 @@ The Folkshus elections are to be held now.
 on-departure: next_election_year = next_election_year + 1; next_election_time = time + 12; pro_republic -= 10; prog_relation -= 8; rust_relation -= 8; pat_relation -= 10; socs_relation -= 8; coup_progress += 2; workers_pop -= 4; new_middle_pop -= 5; old_middle_pop -= 5; rural_pop -= 5; unemployed_pop -= 5; coup_progress += 2 if stats_normalized >= 0.3; coup_progress += 2 if stats_normalized + rust_normalized >= 0.5; ffb_strength += 100 if coup_progress >= 7; vs_strength += 100 if coup_progress >= 7
 achievement: ausnahmezustand
 
-Fine. Queen [+ headofstate +] has taken the unprecedented step of canceling these elections. New elections are scheduled for [+ next_election_month : month +] [+ next_election_year +].
+Fine. Ceaserin [+ headofstate +] has taken the unprecedented step of canceling these elections. New elections are scheduled for [+ next_election_month : month +] [+ next_election_year +].
 
 Let us hope this does not backfire.
 
@@ -184,22 +184,22 @@ data = [
     },
 ];
 
-//if (window && d3) {
-//   var width = 500; 
-//    var height = 500;
-//    var screenWidth = document.getElementById('content').offsetWidth;
-//    if (screenWidth < width - 50) {
-//        width = screenWidth - 50; 
-//        height = width;
-//        document.getElementById("folkshus").style.height = screenWidth/2 + "px";
-//    } 
+if (window && d3) {
+   var width = 500; 
+    var height = 500;
+    var screenWidth = document.getElementById('content').offsetWidth;
+    if (screenWidth < width - 50) {
+        width = screenWidth - 50; 
+        height = width;
+        document.getElementById("folkshus").style.height = screenWidth/2 + "px";
+    } 
 
-//    var parliament = d3.parliament();
-//    parliament.width(width).height(height).innerRadiusCoef(0.4);
-//    parliament.enter.fromCenter(true).smallToBig(true);
-//    parliament.exit.toCenter(false).bigToSmall(true);
-//    d3.select("#folkshus").datum(data).call(parliament);
-//}
+    var parliament = d3.parliament();
+    parliament.width(width).height(height).innerRadiusCoef(0.4);
+    parliament.enter.fromCenter(true).smallToBig(true);
+    parliament.exit.toCenter(false).bigToSmall(true);
+    d3.select("#folkshus").datum(data).call(parliament);
+}
 !}
 go-to: coalition_menu
 
