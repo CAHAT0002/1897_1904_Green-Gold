@@ -29,8 +29,9 @@ d3.parliament = function() {
 
     function parliament(data) {
         console.log(data);
-        data.each(function(d) {
-
+        return this.each(function() {
+        var d = data;
+        
             // if user did not provide, fill the svg:
             width = width ? width : this.getBoundingClientRect().width;
             height = width ? width / 2 : this.getBoundingClientRect().width/2;
