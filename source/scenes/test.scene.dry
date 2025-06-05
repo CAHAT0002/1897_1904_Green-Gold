@@ -10,9 +10,9 @@ Next election time: [+ next_election_time +]
 Current time: [+ time +]
 
 Should trigger:
-[+ year > next_election_year +]
-[+ year == next_election_year +]
-[+ month >= next_election_month +]
+[+ year +] > [+ next_election_year +]
+[+ year +] = [+ next_election_year +]
+[+ month +] >= [+ next_election_month +]
 
 Election time logic: 
 [+ time >= next_election_time +]
