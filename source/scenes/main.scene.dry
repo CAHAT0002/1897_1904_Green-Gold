@@ -2,7 +2,6 @@ title: Next month
 set-bg: img/map_2.jpg
 is-hand: true
 on-arrival: {!
-go-to: test
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
 } else if (Q.advisor_action_timer == 1) {
