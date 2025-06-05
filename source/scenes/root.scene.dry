@@ -215,7 +215,7 @@ Q.unemployed = 3;
 // inflation (in %; 1928: 2.9; 1929: 0; 1930: -5%; 1931: -10%; 1932: -10%) - source: https://en.wikipedia.org/wiki/File:BSPDRWeltkriseEngl.PNG, derived from https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/2009/03/rezession-betrachtung-032009.pdf?__blob=publicationFile
 Q.inflation = 2.9;
 
-// economic growth - same source as above, Table 2 (preisbereinigt) - this is also the source for the yearly changes in the great depression.
+// economic growth
 Q.economic_growth = .5;
 
 // economic expansion timer
@@ -284,17 +284,6 @@ Q.old_rust_f = 44;
 Q.old_stat_f = 14;
 Q.old_socs_f = 1;
 Q.old_other_f = 5;
-
-// Events: what has occurred?
-Q.panzerkreuzer_seen = 0;
-Q.panzerkreuzer_funded = 0;
-Q.panzerkreuzer_failed = 0;
-Q.unemployment_insurance_seen = 0;
-// unemployment insurance event is seen if the unemployment level is at least 4 more than the threshold...
-Q.unemployment_insurance_threshold = 10;
-Q.blutmai = 0;
-
-
 
 
 // array of objects of the form {date: Date(), spd: 10, kpd: 12, ...} for each election

@@ -3,8 +3,8 @@ new-page: true
 tags: event
 priority: -1
 view-if: (year = next_election_year and month >= next_election_month) or (year > next_election_year)
-on-departure: month_actions += 1; in_election = 0; next_election_year = next_election_year + 4; n_elections += 1; next_election_time = time + 48; richmondson_chancellor_timer = 4;
-set-jump: post_election_1897
+on-departure: month_actions += 1; in_election = 0; next_election_year = next_election_year + 5; n_elections += 1; next_election_time = time + 60; richmondson_chancellor_timer = 5;
+set-jump: post_election_1898
 face-image: img/Rothe_Wahlen_1903.jpg
 
 # the low priority means that this event is only seen after all other events are resolved for the month.
@@ -23,7 +23,7 @@ Fine. Queen [+ headofstate +] has taken the unprecedented step of canceling thes
 
 Let us hope this does not backfire.
 
-@post_election_1897
+@post_election_1898
 on-arrival: {!
 // set old results
 // election threshold constitutional reform
