@@ -184,7 +184,7 @@ data = [
     },
 ];
 
-#if (window && d3) {
+//if (window && d3) {
 #    var width = 500; 
 #    var height = 500;
 #    var screenWidth = document.getElementById('content').offsetWidth;
