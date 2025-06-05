@@ -19,3 +19,4 @@ Election time logic:
 [+ time +] >= [+ next_election_time +]
 
 @done
+go-to: main 
